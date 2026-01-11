@@ -100,9 +100,13 @@ create_plots <- function(qb_stats, team_colors, output_dir = PLOTS_DIR) {
     geom_text(data = filter(qb_stats, epa_per_play > 0.15 | completion_pct > 67),
               aes(label = passer_player_name), hjust = -0.1, size = 3, show.legend = FALSE) +
     scale_color_teams(team_colors) +
+    scale_x_continuous(expand = expansion(mult = c(0.05, 0.15))) +
+    scale_y_continuous(expand = expansion(mult = c(0.1, 0.1))) +
     theme_minimal() +
     labs(title = "Completion % vs EPA per Play", x = "Completion %", y = "EPA per Play") +
-    theme(plot.title = element_text(face = "bold", hjust = 0.5, size = 14), legend.position = "none")
+    theme(plot.title = element_text(face = "bold", hjust = 0.5, size = 14),
+          legend.position = "none",
+          plot.margin = margin(10, 20, 10, 10))
 
   ggsave(file.path(output_dir, "02_comp_vs_epa.png"), p2, width = 10, height = 8, dpi = 300)
 
@@ -114,9 +118,13 @@ create_plots <- function(qb_stats, team_colors, output_dir = PLOTS_DIR) {
     geom_text(data = filter(qb_stats, success_rate > 0.50 | cpoe > 5),
               aes(label = passer_player_name), hjust = -0.1, size = 3, show.legend = FALSE) +
     scale_color_teams(team_colors) +
+    scale_x_continuous(expand = expansion(mult = c(0.1, 0.15))) +
+    scale_y_continuous(expand = expansion(mult = c(0.05, 0.1))) +
     theme_minimal() +
     labs(title = "Success Rate vs CPOE", x = "CPOE (%)", y = "Success Rate (%)") +
-    theme(plot.title = element_text(face = "bold", hjust = 0.5, size = 14), legend.position = "none")
+    theme(plot.title = element_text(face = "bold", hjust = 0.5, size = 14),
+          legend.position = "none",
+          plot.margin = margin(10, 20, 10, 10))
 
   ggsave(file.path(output_dir, "03_success_vs_cpoe.png"), p3, width = 10, height = 8, dpi = 300)
 
@@ -128,9 +136,13 @@ create_plots <- function(qb_stats, team_colors, output_dir = PLOTS_DIR) {
     geom_text(data = filter(qb_stats, epa_per_play > 0.20 | air_yards_per_att > 9),
               aes(label = passer_player_name), hjust = -0.1, size = 3, show.legend = FALSE) +
     scale_color_teams(team_colors) +
+    scale_x_continuous(expand = expansion(mult = c(0.05, 0.15))) +
+    scale_y_continuous(expand = expansion(mult = c(0.1, 0.1))) +
     theme_minimal() +
     labs(title = "Air Yards vs EPA - Efficiency + Aggression", x = "Air Yards per Attempt", y = "EPA per Play") +
-    theme(plot.title = element_text(face = "bold", hjust = 0.5, size = 14), legend.position = "none")
+    theme(plot.title = element_text(face = "bold", hjust = 0.5, size = 14),
+          legend.position = "none",
+          plot.margin = margin(10, 20, 10, 10))
 
   ggsave(file.path(output_dir, "04_air_yards_epa.png"), p4, width = 10, height = 8, dpi = 300)
 
@@ -142,11 +154,14 @@ create_plots <- function(qb_stats, team_colors, output_dir = PLOTS_DIR) {
     geom_text(data = filter(qb_deep, deep_comp_pct > 45 | deep_att > 80),
               aes(label = passer_player_name), hjust = -0.1, size = 3, show.legend = FALSE) +
     scale_color_teams(team_colors) +
+    scale_x_continuous(expand = expansion(mult = c(0.05, 0.15))) +
+    scale_y_continuous(expand = expansion(mult = c(0.1, 0.1))) +
     theme_minimal() +
     labs(title = "Deep Ball Performance (20+ yards)", subtitle = "Size = Total Deep Yards",
          x = "Deep Attempts", y = "Deep Completion %", size = "Deep Yards") +
     theme(plot.title = element_text(face = "bold", hjust = 0.5, size = 14),
-          plot.subtitle = element_text(hjust = 0.5))
+          plot.subtitle = element_text(hjust = 0.5),
+          plot.margin = margin(10, 20, 10, 10))
 
   ggsave(file.path(output_dir, "05_deep_ball.png"), p5, width = 10, height = 8, dpi = 300)
 
