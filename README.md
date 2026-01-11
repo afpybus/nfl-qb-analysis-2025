@@ -156,6 +156,84 @@ The gap between Maye and other recent draftees (3.3x better EPA) shows that elit
 
 ---
 
+## NFL MVP Analysis - 2025 Season
+
+### The Verdict: Who Should Win vs. Who Will Win
+
+**My Pick to Win:** Matthew Stafford (LA Rams)
+**Who Should Win:** Drake Maye (New England Patriots)
+
+![QB MVP Contenders](plots/09_mvp_qb_contenders.png)
+
+### The Case for Drake Maye (Should Win)
+
+Drake Maye leads the NFL with **0.298 EPA per play** - a generational level of efficiency rarely seen from rookies, let alone on struggling teams. By every advanced metric that matters - EPA/play, CPOE, success rate, efficiency-adjusted impact - Maye is having a historically great season.
+
+**Why He Deserves It:**
+- **Historic efficiency**: 0.298 EPA/play ranks in top 20 single-season marks of analytics era
+- **Unprecedented rookie performance**: No rookie QB has ever combined this volume (540 attempts) with this efficiency
+- **Team context**: Creating elite value on a limited roster - the essence of "most valuable"
+- **Total EPA**: 161.0 total EPA added (20 more than any other player in football)
+
+### The Case for Matthew Stafford (Will Win)
+
+![MVP Total EPA](plots/12_mvp_total_epa.png)
+
+While Maye has the efficiency edge, **Matthew Stafford will likely win MVP** because he has the traditional stats voters love:
+
+**2025 Stats:**
+- **46 touchdowns** - Most in NFL (15 more than Maye)
+- **4,557 passing yards** - #2 in NFL
+- **0.227 EPA/play** - #3 in NFL (elite efficiency + volume)
+- **Leading the Rams offense** - Team success matters
+
+**Why He'll Win:**
+- Touchdown totals and volume stats drive MVP voting historically
+- Veteran QB narrative with career year
+- Deep ball king (1,257 deep yards, 90 attempts)
+- Voters hesitant to give MVP to rookies, even historic ones
+
+**The Reality:** MVP voters prioritize volume stats (TDs, yards) and team success over per-play efficiency. Stafford checks all the traditional boxes.
+
+### Non-QB Contenders
+
+![RB MVP Contenders](plots/10_mvp_rb_contenders.png)
+![WR MVP Contenders](plots/11_mvp_wr_contenders.png)
+
+**Top Running Backs:**
+- **Bijan Robinson (ATL)**: 2,300 scrimmage yards - league leader
+- **Jonathan Taylor (IND)**: 1,965 yards, 20 TDs - best TD total
+- **Christian McCaffrey (SF)**: 2,106 yards, 17 TDs - complete back
+
+**Top Wide Receivers:**
+- **Jaxon Smith-Njigba (SEA)**: 1,793 yards - league leader
+- **Puka Nacua (LA)**: 1,715 yards, 11 TDs - highest WR EPA/target
+- **George Pickens (DAL)**: 1,431 yards, 9 TDs
+
+**Why No Non-QB Will Win:**
+
+The last non-QB MVP was Adrian Peterson in 2012. Modern NFL is pass-heavy, and EPA heavily favors QBs. Even elite RB seasons (2,300 yards) can't match the EPA impact of efficient QB play. Jonathan Taylor's elite RB season (21.5 total EPA) is only 13% of Maye's total EPA (161.0).
+
+### Final MVP Rankings
+
+**My Ballot (Analytics-Based):**
+1. Drake Maye - Most valuable by the numbers
+2. Matthew Stafford - Elite volume + efficiency
+3. Jordan Love - Strong efficiency
+4. Jonathan Taylor - Best non-QB season
+5. Jared Goff - Solid all-around
+
+**Predicted Results (Traditional Voting):**
+1. Matthew Stafford - Voters love volume stats
+2. Drake Maye - Strong runner-up
+3. Bijan Robinson - RB looking for non-QB vote
+4. Jordan Love - Packers success helps
+5. Jonathan Taylor - Elite RB season
+
+> **Full MVP Analysis:** See [docs/MVP_ANALYSIS_2025.md](docs/MVP_ANALYSIS_2025.md) for complete breakdown with historical context
+
+---
+
 ## Metrics Explained
 
 **EPA (Expected Points Added)** - Value added per play relative to expected outcome. Best measure of overall QB effectiveness.
@@ -173,17 +251,20 @@ The gap between Maye and other recent draftees (3.3x better EPA) shows that elit
 ## Files & Resources
 
 **Analysis Scripts:** See `scripts/` directory
-- `analyze_qbs.R` - Main analysis (run this)
+- `analyze_qbs.R` - Main QB analysis (run this)
+- `mvp_analysis.R` - MVP contenders analysis
 - `maye_analysis.R` - Drake Maye deep dive
 - `stafford_analysis.R` - Matthew Stafford analysis
 
 **Outputs:**
-- `output/qb_stats_2025.csv` - Complete dataset
+- `output/qb_stats_2025.csv` - Complete QB dataset
+- `output/mvp_*_candidates_2025.csv` - MVP candidate data (QB, RB, WR)
 - `output/QB_Report_2025.html` - Interactive HTML report
-- `plots/` - 8 visualizations (PNG)
+- `plots/` - 12 visualizations (PNG)
 
 **Documentation:**
-- `docs/QB_Analysis_2025.md` - Full written analysis
+- `docs/QB_Analysis_2025.md` - Full QB analysis
+- `docs/MVP_ANALYSIS_2025.md` - Complete MVP breakdown
 - `docs/slides.md` - Slidev presentation
 - `QUICKSTART.md` - Setup & usage guide
 
