@@ -1,0 +1,14 @@
+{
+  "name": "nfl-qb-analysis-2025-slides",
+  "version": "1.0.0",
+  "description": "Slidev presentation for NFL QB Analysis 2025",
+  "scripts": {
+    "dev": "slidev slides.md",
+    "build": "slidev build slides.md",
+    "export": "slidev export slides.md"
+  },
+  "dependencies": {
+    "@slidev/cli": "^0.48.0",
+    "@slidev/theme-default": "latest"
+  }
+}

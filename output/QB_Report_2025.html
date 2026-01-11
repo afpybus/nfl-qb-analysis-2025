@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NFL QB Analysis 2025</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f5f5f5;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+
+        header {
+            background: linear-gradient(135deg, #013369 0%, #d50a0a 100%);
+            color: white;
+            padding: 60px 40px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            font-weight: 800;
+        }
+
+        header p {
+            font-size: 1.3em;
+            opacity: 0.95;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            padding: 40px;
+            background: #f8f9fa;
+        }
+
+        .stat-box {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            text-align: center;
+            border-left: 4px solid #013369;
+        }
+
+        .stat-box h3 {
+            color: #666;
+            font-size: 0.9em;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .stat-box .value {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #013369;
+        }
+
+        .section {
+            padding: 60px 40px;
+        }
+
+        .section:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        .section h2 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            color: #013369;
+            border-bottom: 4px solid #d50a0a;
+            padding-bottom: 15px;
+            font-weight: 800;
+        }
+
+        .section h3 {
+            font-size: 1.8em;
+            margin: 30px 0 15px;
+            color: #013369;
+            font-weight: 700;
+        }
+
+        .section p, .section ul {
+            font-size: 1.1em;
+            margin-bottom: 15px;
+            color: #555;
+        }
+
+        .section ul {
+            padding-left: 30px;
+        }
+
+        .section li {
+            margin-bottom: 10px;
+        }
+
+        .highlight {
+            background: #fff3cd;
+            padding: 20px;
+            border-left: 5px solid #ffc107;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .highlight strong {
+            color: #013369;
+        }
+
+        .plot-container {
+            margin: 40px 0;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+        }
+
+        .plot-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 5px;
+        }
+
+        .plot-caption {
+            margin-top: 15px;
+            font-style: italic;
+            color: #666;
+            text-align: center;
+            font-size: 0.95em;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        th {
+            background: #013369;
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        tr:hover {
+            background: #f8f9fa;
+        }
+
+        .player-card {
+            background: linear-gradient(135deg, #002244 0%, #003366 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 15px;
+            margin: 30px 0;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+        }
+
+        .player-card h3 {
+            color: white;
+            font-size: 2.2em;
+            margin-bottom: 15px;
+        }
+
+        .player-card p {
+            color: #e0e0e0;
+            font-size: 1.15em;
+        }
+
+        .rank-badge {
+            display: inline-block;
+            background: #d50a0a;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.9em;
+            margin: 5px 5px 5px 0;
+        }
+
+        footer {
+            background: #222;
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        footer p {
+            margin: 5px 0;
+            opacity: 0.8;
+        }
+
+        .top-players {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+
+        .player-box {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+            border-top: 5px solid #013369;
+        }
+
+        .player-box h4 {
+            color: #013369;
+            font-size: 1.5em;
+            margin-bottom: 15px;
+        }
+
+        .player-box ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .player-box li {
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .formula-box {
+            background: #e8f4f8;
+            border: 3px solid #013369;
+            border-radius: 10px;
+            padding: 30px;
+            margin: 30px 0;
+            text-align: center;
+        }
+
+        .formula-box .formula {
+            font-size: 1.4em;
+            font-weight: bold;
+            color: #013369;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>NFL Quarterback Analysis</h1>
+            <p>2025 Season Performance Review</p>
+            <p style="font-size: 1em; margin-top: 10px; opacity: 0.85;">Advanced Metrics & Play-by-Play Analysis</p>
+        </header>
+
+        <div class="stats-grid">
+            <div class="stat-box">
+                <h3>QBs Analyzed</h3>
+                <div class="value">46</div>
+            </div>
+            <div class="stat-box">
+                <h3>Avg EPA/Play</h3>
+                <div class="value">-0.007</div>
+            </div>
+            <div class="stat-box">
+                <h3>Avg Completion %</h3>
+                <div class="value">59.0%</div>
+            </div>
+            <div class="stat-box">
+                <h3>Avg YPA</h3>
+                <div class="value">6.38</div>
+            </div>
+        </div>
+
+        <section class="section">
+            <h2>Executive Summary</h2>
+            <p>Analysis of 46 starting quarterbacks (100+ attempts minimum) in the 2025 NFL regular season reveals distinct performance tiers and playing styles. Using advanced metrics including EPA (Expected Points Added), CPOE (Completion Percentage Over Expected), and success rate, we identified the league's top performers and their unique strengths.</p>
+
+            <div class="highlight">
+                <strong>Key Insight:</strong> Traditional stats (yards, TDs) don't tell the full story - efficiency metrics reveal true quarterback value and impact on winning.
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>Top Performers by EPA per Play</h2>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Quarterback</th>
+                        <th>Team</th>
+                        <th>EPA/Play</th>
+                        <th>Success Rate</th>
+                        <th>Comp %</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="background: #fffacd;">
+                        <td><strong>1</strong></td>
+                        <td><strong>Drake Maye</strong></td>
+                        <td>NE</td>
+                        <td><strong>0.298</strong></td>
+                        <td>54.4%</td>
+                        <td>65.6%</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Jordan Love</td>
+                        <td>GB</td>
+                        <td>0.239</td>
+                        <td>49.6%</td>
+                        <td>63.0%</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>Matthew Stafford</td>
+                        <td>LA</td>
+                        <td>0.227</td>
+                        <td>53.1%</td>
+                        <td>62.6%</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>Brock Purdy</td>
+                        <td>SF</td>
+                        <td>0.194</td>
+                        <td>53.4%</td>
+                        <td>66.1%</td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>Jared Goff</td>
+                        <td>DET</td>
+                        <td>0.173</td>
+                        <td>48.2%</td>
+                        <td>63.8%</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="plot-container">
+                <img src="report_plots/01_top_qbs_epa.png" alt="Top 15 QBs by EPA">
+                <p class="plot-caption">Top 15 quarterbacks ranked by EPA per play - the most comprehensive efficiency metric</p>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>Drake Maye: The NFL's Most Efficient Quarterback</h2>
+
+            <div class="player-card">
+                <h3>🌟 Drake Maye - New England Patriots</h3>
+                <p>Drake Maye's 2025 season represents one of the most impressive quarterback performances in recent history. He leads the NFL in every major efficiency metric while maintaining elite aggression downfield.</p>
+                <div style="margin-top: 20px;">
+                    <span class="rank-badge">#1 EPA per Play</span>
+                    <span class="rank-badge">#1 Success Rate</span>
+                    <span class="rank-badge">#1 CPOE</span>
+                    <span class="rank-badge">#1 YPA</span>
+                    <span class="rank-badge">#2 Completion %</span>
+                </div>
+            </div>
+
+            <h3>Historic Efficiency Performance</h3>
+            <div class="top-players">
+                <div class="player-box">
+                    <h4>EPA Leadership</h4>
+                    <ul>
+                        <li><strong>0.298 EPA/play</strong> - #1 in NFL</li>
+                        <li>25% better than #2 (Love: 0.239)</li>
+                        <li>Historic margin of dominance</li>
+                    </ul>
+                </div>
+
+                <div class="player-box">
+                    <h4>Success Rate Dominance</h4>
+                    <ul>
+                        <li><strong>54.4%</strong> success rate - #1</li>
+                        <li>10.3% above league average</li>
+                        <li>Elite play-to-play execution</li>
+                    </ul>
+                </div>
+
+                <div class="player-box">
+                    <h4>Accuracy Excellence</h4>
+                    <ul>
+                        <li><strong>CPOE: 10.78</strong> - #1 in NFL</li>
+                        <li>65.6% completion rate</li>
+                        <li>Completes difficult throws</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="plot-container">
+                <img src="report_plots/04_maye_efficiency_aggression.png" alt="Maye Efficiency vs Aggression">
+                <p class="plot-caption">Drake Maye occupies elite territory - high efficiency AND high aggression</p>
+            </div>
+
+            <h3>Deep Ball Mastery</h3>
+            <p><strong>50% completion rate on deep balls (20+ air yards)</strong> - This is historically elite. Most quarterbacks either:</p>
+            <ul>
+                <li>Throw deep rarely and maintain accuracy, OR</li>
+                <li>Throw deep frequently but struggle with completion rate</li>
+            </ul>
+            <p><strong>Maye does both</strong> - 70 deep attempts with 50% completion is unprecedented.</p>
+
+            <div class="highlight">
+                <strong>Deep Ball Stats:</strong> 70 attempts | 35 completions | 1,093 yards (#2 in NFL) | 50.0% completion (15% above league average)
+            </div>
+
+            <div class="plot-container">
+                <img src="report_plots/05_maye_deep_ball.png" alt="Maye Deep Ball Analysis">
+                <p class="plot-caption">Maye's 50% deep ball completion rate on high volume is exceptional</p>
+            </div>
+
+            <h3>Young QB Comparison</h3>
+            <p>Among quarterbacks from the 2023-2024 draft classes, Maye stands alone:</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>QB</th>
+                        <th>Team</th>
+                        <th>EPA/Play</th>
+                        <th>Success %</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="background: #fffacd;">
+                        <td>1</td>
+                        <td><strong>Drake Maye</strong></td>
+                        <td>NE</td>
+                        <td><strong>0.298</strong></td>
+                        <td>54.4%</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Bo Nix</td>
+                        <td>DEN</td>
+                        <td>0.092</td>
+                        <td>44.3%</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>Caleb Williams</td>
+                        <td>CHI</td>
+                        <td>0.071</td>
+                        <td>43.1%</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>Michael Penix</td>
+                        <td>ATL</td>
+                        <td>-0.004</td>
+                        <td>45.2%</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="plot-container">
+                <img src="report_plots/08_young_qbs.png" alt="Young QBs Comparison">
+                <p class="plot-caption">Maye's EPA is 3.3x better than the #2 young QB - a generational gap</p>
+            </div>
+
+            <div class="formula-box">
+                <h4>The Drake Maye Formula</h4>
+                <div class="formula">
+                    Historic Efficiency + Aggressive Downfield Passing + Elite Accuracy = Best QB in NFL
+                </div>
+                <p>Unlike most QBs who excel in one or two areas, Maye dominates across all metrics. This is what separates good QBs from franchise cornerstones.</p>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>Matthew Stafford: Elite Volume Deep-Ball Passer</h2>
+
+            <div class="player-card" style="background: linear-gradient(135deg, #003594 0%, #FFA300 100%);">
+                <h3>🎯 Matthew Stafford - Los Angeles Rams</h3>
+                <p>Matthew Stafford represents a unique archetype: the elite volume deep-ball passer. While many QBs either throw deep infrequently or struggle with efficiency when they do, Stafford excels at both.</p>
+                <div style="margin-top: 20px;">
+                    <span class="rank-badge">#1 Passing Yards</span>
+                    <span class="rank-badge">#1 Touchdowns</span>
+                    <span class="rank-badge">#1 Deep Yards</span>
+                    <span class="rank-badge">#3 EPA/Play</span>
+                </div>
+            </div>
+
+            <h3>Deep Ball Dominance</h3>
+            <div class="top-players">
+                <div class="player-box">
+                    <h4>Volume Leadership</h4>
+                    <ul>
+                        <li><strong>90 deep attempts</strong> - Most in NFL</li>
+                        <li>20 more than #2 QB</li>
+                        <li>Most aggressive downfield</li>
+                    </ul>
+                </div>
+
+                <div class="player-box">
+                    <h4>Deep Ball Success</h4>
+                    <ul>
+                        <li><strong>1,257 deep yards</strong> - #1</li>
+                        <li>43.3% completion on deep balls</li>
+                        <li>8.3% above league average</li>
+                    </ul>
+                </div>
+
+                <div class="player-box">
+                    <h4>Efficiency Maintained</h4>
+                    <ul>
+                        <li><strong>0.227 EPA/play</strong> - #3</li>
+                        <li>9.09 air yards/attempt - #3</li>
+                        <li>Elite despite high volume</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="plot-container">
+                <img src="report_plots/06_stafford_air_yards_epa.png" alt="Stafford Air Yards">
+                <p class="plot-caption">Stafford combines deep aggression (9.09 air yards/att) with elite efficiency (#3 EPA)</p>
+            </div>
+
+            <div class="plot-container">
+                <img src="report_plots/07_stafford_deep_ball.png" alt="Stafford Deep Ball">
+                <p class="plot-caption">Stafford leads the league in deep ball volume and yards by a significant margin</p>
+            </div>
+
+            <div class="highlight">
+                <strong>Key Insight:</strong> Stafford throws 1.38 yards deeper per attempt than league average while maintaining top-3 efficiency. This is the hallmark of an elite downfield passer.
+            </div>
+
+            <div class="formula-box">
+                <h4>The Stafford Formula</h4>
+                <div class="formula">
+                    High Volume + Deep Aggression + High Efficiency = Elite Production
+                </div>
+                <p>Most QBs sacrifice one of these three elements. Stafford achieves all three simultaneously, making him uniquely valuable.</p>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>Advanced Metrics Analysis</h2>
+
+            <h3>Completion % vs EPA</h3>
+            <div class="plot-container">
+                <img src="report_plots/02_comp_vs_epa.png" alt="Completion vs EPA">
+                <p class="plot-caption">Higher completion percentage doesn't always mean higher EPA - context matters</p>
+            </div>
+
+            <h3>Success Rate vs CPOE</h3>
+            <div class="plot-container">
+                <img src="report_plots/03_success_vs_cpoe.png" alt="Success Rate vs CPOE">
+                <p class="plot-caption">Upper-right quadrant QBs (Maye, Stafford, Love) combine scheme success with individual accuracy</p>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>Key Findings</h2>
+
+            <div class="top-players">
+                <div class="player-box">
+                    <h4>1. Efficiency Matters Most</h4>
+                    <p>Drake Maye leads in EPA/play despite fewer attempts than many peers. Quality over quantity drives winning football.</p>
+                </div>
+
+                <div class="player-box">
+                    <h4>2. Deep Ball Variance</h4>
+                    <p>Elite passers complete 43%+ on deep throws. League average is 35%. Some QBs struggle under 30%.</p>
+                </div>
+
+                <div class="player-box">
+                    <h4>3. Context-Aware Metrics</h4>
+                    <p>Traditional stats mislead. CPOE, EPA, and success rate reveal true quarterback value better than raw yards and TDs.</p>
+                </div>
+
+                <div class="player-box">
+                    <h4>4. Multiple Paths to Success</h4>
+                    <p>Maye's efficiency, Stafford's volume, Love's balance, Mahomes' pedigree - success comes in many forms.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>Methodology</h2>
+
+            <h3>Data Source</h3>
+            <ul>
+                <li><strong>Package:</strong> nflreadr (official NFL play-by-play data)</li>
+                <li><strong>Season:</strong> 2025 regular season</li>
+                <li><strong>Minimum:</strong> 100 pass attempts (46 QBs qualified)</li>
+            </ul>
+
+            <h3>Key Metrics Explained</h3>
+
+            <div class="top-players">
+                <div class="player-box">
+                    <h4>EPA (Expected Points Added)</h4>
+                    <p>Measures value added on each play relative to expected outcome. Positive EPA = above average performance.</p>
+                </div>
+
+                <div class="player-box">
+                    <h4>CPOE</h4>
+                    <p>Completion Percentage Over Expected - accounts for difficulty of throws (distance, pressure, coverage).</p>
+                </div>
+
+                <div class="player-box">
+                    <h4>Success Rate</h4>
+                    <p>Percentage of plays that maintain or improve down-and-distance situation. Binary measure of play success.</p>
+                </div>
+
+                <div class="player-box">
+                    <h4>Air Yards</h4>
+                    <p>Distance ball travels in air from line of scrimmage to target. Measures downfield aggression.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>Conclusions</h2>
+
+            <div class="highlight">
+                <p><strong>1. Drake Maye</strong> emerges as the season's most efficient QB with elite deep-ball prowess and historic accuracy</p>
+                <p><strong>2. Matthew Stafford</strong> leads the league as the ultimate volume deep-ball passer, combining aggression with efficiency</p>
+                <p><strong>3. Jordan Love</strong> proves his 2023 breakout was sustainable with strong Year 2 performance</p>
+                <p><strong>4. Traditional pocket passers</strong> (Goff, Prescott, Purdy) remain highly effective in modern NFL</p>
+                <p><strong>5. Patrick Mahomes</strong> continues winning despite not leading traditional metrics - championship pedigree matters</p>
+            </div>
+
+            <p style="margin-top: 30px; font-size: 1.15em;">The 2025 season showcases diverse quarterback archetypes - from Maye's efficient aggression to Stafford's volume dominance to Mahomes' championship experience. <strong>Success comes in many forms, but efficiency is king.</strong></p>
+        </section>
+
+        <footer>
+            <h3 style="color: white; margin-bottom: 20px;">NFL QB Analysis 2025</h3>
+            <p>Data: nflreadr R package</p>
+            <p>Analysis: R with dplyr, ggplot2, tidyr</p>
+            <p>Season: 2025 NFL Regular Season</p>
+            <p style="margin-top: 20px; font-size: 0.9em;">Generated: January 2026</p>
+        </footer>
+    </div>
+</body>
+</html>

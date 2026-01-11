@@ -1,0 +1,17 @@
+{
+  "name": "nfl-qb-analysis-2025",
+  "version": "1.0.0",
+  "description": "NFL Quarterback Analysis 2025 - Slidev Presentation",
+  "scripts": {
+    "dev": "slidev slides.md",
+    "build": "slidev build slides.md",
+    "export": "slidev export slides.md"
+  },
+  "dependencies": {
+    "@slidev/cli": "^0.48.0",
+    "@slidev/theme-default": "latest"
+  },
+  "devDependencies": {
+    "playwright-chromium": "^1.40.0"
+  }
+}

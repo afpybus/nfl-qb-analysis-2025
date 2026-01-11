@@ -1,0 +1,57 @@
+# R specific
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+*.Rproj
+
+# RStudio files
+*.Rproj
+.Rproj.user/
+
+# Session Data files
+.RData
+.RDataTmp
+
+# User-specific files
+.Ruserdata
+
+# renv library
+renv/
+.Rprofile
+
+# Output files (optional - uncomment if you don't want to commit these)
+# output/*.csv
+# plots/*.png
+# report_plots/*.png
+
+# Temporary files
+*.tmp
+*.log
+*~
+
+# OS specific
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+*.swp
+*.swo
+
+# Node modules (for Slidev)
+node_modules/
+package-lock.json
+dist/
+.slidev/
+
+# IDE
+.vscode/
+.idea/
+*.iml
+
+# Misc
+*.bak
+*.old

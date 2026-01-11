@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(Rscript:*)",
+      "Bash(dir \"C:\\\\Program Files\\\\R\" /b)"
+    ]
+  }
+}
